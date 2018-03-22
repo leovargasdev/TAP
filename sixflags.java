@@ -1,34 +1,33 @@
-// Problema da URI número 2463
+// Problema da URI número 1487
 import java.util.Scanner;
 import java.io.IOException;
 class Main{
-	public static int n = 1; // numero de brinquedos
-	public static int t = 1	; // tempo limite no parque
+	public static int n; // numero de brinquedos
+	public static int t; // tempo limite no parque
 	public static int[] duracao;
 	public static int[] pontuacao;
 
 	public static int colecao(int a, int tempo){
-		int j = 0;
+		int j = 0, y = 0;
 		if (a >= n || tempo < 0)
 			return -12345647;
 		if (tempo == 0)
 			return 0;
-		if(tempo >= duracao[a])
+		if(tempo >= duracao[a] && pontuacao[a] > 0)
 			j = pontuacao[a] + colecao(a, tempo-duracao[a]);
-		int y = colecao(a+1, tempo);
+		y = colecao(a+1, tempo);
 		if(j >= y)
 			return j;
 		return y;
 	}
-
 	public static void main( String [] args ) throws IOException {
 		Scanner scanner = new Scanner(System.in);
-		int r = 0;
+		int r = 1;
 		do{
-			r++;
 			n = scanner.nextInt(); // numero de brinquedos
 		    t = scanner.nextInt(); // tempo limite no parque
-			if(n == 0 && t == 0) break;
+			if(n == 0 && t == 0)
+				break;
 			duracao = new int[n];
 			pontuacao = new int[n];
 			for(int w = 0; w < n; w++){
@@ -37,6 +36,7 @@ class Main{
 			}
 			System.out.println("Instancia " + r);
 			System.out.println(colecao(0, t));
+			r++;
 		}while(true);
 	}
 }
